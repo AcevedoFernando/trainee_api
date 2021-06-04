@@ -353,4 +353,4 @@ MigrationBackup/
 config.js
 
 # Environment configuration}
-.env.example
+.env

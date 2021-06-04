@@ -24,7 +24,8 @@ const store = (req, res, next) => {
         delivery_at,
         machine,
         cost,
-        type
+        type,
+        description
     } =  req.body
     let status = 1;
     let createdAt = new Date();
@@ -38,6 +39,7 @@ const store = (req, res, next) => {
         cost: cost,
         type: type,
         status: status,
+        desription: description,
         updatedAt: updatedAt,
         createdAt: createdAt
     })
@@ -66,7 +68,8 @@ const update = (req, res, next) => {
         delivery_at,
         machine,
         cost,
-        type
+        type,
+        description
     } =  req.body
     let updatedAt = new Date();
     let id = req.params.id
@@ -78,6 +81,7 @@ const update = (req, res, next) => {
         machine: machine,
         cost: cost,
         type: type,
+        description: description,
         updatedAt: updatedAt,
     }, {
         where: {

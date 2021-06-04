@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = 3000
@@ -7,6 +8,22 @@ const sequelize = require('./database/db');
 
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true}));
 app.use(bodyParser.json({limit: '200mb'}));
+
+ // Headers Accepted by server
+app.use(function (req, res, next) {
+        console.log(process.env.APP_ENV)
+        if (process.env.APP_ENV === 'production') {
+            res.header("Origin, X-Requested-With, Content-Type, Accept");
+        } else {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.header("Access-Control-Allow-Methods", "*");
+        }
+
+        next();
+        
+    });
+    
 app.use("/storage",express.static(__dirname + '/storage'))
 
 app.use('/api/v1',router)
