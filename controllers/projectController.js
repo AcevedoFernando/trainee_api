@@ -5,11 +5,18 @@ const validator = require('../middlewares/validator')
 const Project = require('./../models/project')
 
 // Methods
-function index(req, res, next) {
-    res.send('index')
+const index = (req, res, next) => {
+    Project.findAndCountAll({
+        attributes: ['id', 'name', 'price', 'status', 'delivery_at']
+    }).then(response => {
+        console.log(response)
+        res.json(response)
+    }).catch(err => {
+        next(new Error(err.message))
+    })
 }
 
-const store = async (req, res, next) => {
+const store = (req, res, next) => {
 
     let {
         name,
@@ -35,23 +42,67 @@ const store = async (req, res, next) => {
         createdAt: createdAt
     })
     .then(response => {
-        res.json('ok')
+        res.json(response)
     }).catch(err => {
         next(new Error(err.message))
     })
 
 }
 
-function show(req, res, next) {
-    res.send(`show ${req.params.id}`)
+const show = (req, res, next) => {
+    Project.findByPk(req.params.id)
+        .then(response => {
+            res.json(response)
+        }).catch(err => {
+            next(new Error(err.message))
+        })
 }
 
-function update(req, res, next) {
-    res.send(`update ${req.params.id}`)
+const update = (req, res, next) => {
+
+    let {
+        name,
+        price,
+        delivery_at,
+        machine,
+        cost,
+        type
+    } =  req.body
+    let updatedAt = new Date();
+    let id = req.params.id
+
+    Project.update({
+        name: name,
+        price: price,
+        delivery_at: delivery_at,
+        machine: machine,
+        cost: cost,
+        type: type,
+        updatedAt: updatedAt,
+    }, {
+        where: {
+            id: id
+        }
+    })
+    .then(response => {
+        res.json(response)
+    }).catch(err => {
+        next(new Error(err.message))
+    })
+
 }
 
-function destroy(req, res, next) {
-    res.send(`destroy ${req.params.id}`)
+const destroy = (req, res, next) => {
+    let id = req.params.id
+    Project.destroy({
+    where: {
+            id: id
+        }
+    }).then(response => {
+        res.json(response)
+    }).catch(err => {
+        next(new Error(err.message))
+    })
 }
 
 router.get('/', index)
