@@ -14,6 +14,7 @@ Project.init({
     status:  DataTypes.INTEGER,
     delivery_at: DataTypes.DATE,
     type: DataTypes.STRING(100),
+    description: DataTypes.STRING(100),
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {

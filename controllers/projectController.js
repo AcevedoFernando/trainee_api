@@ -10,7 +10,7 @@ function index(req, res, next) {
 }
 
 const store = async (req, res, next) => {
-    
+
     let {
         name,
         price,
@@ -39,7 +39,7 @@ const store = async (req, res, next) => {
     }).catch(err => {
         next(new Error(err.message))
     })
-    
+
 }
 
 function show(req, res, next) {
