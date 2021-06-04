@@ -1,13 +1,21 @@
-const Sequelize = require('sequelize')
-const db = require('./index')
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('./../database/db');
 
-const File = db.define('file', {
-    id: Sequelize.INTEGER,
-    project_id: Sequelize.NUMBER,
-    name: Sequelize.STRING(100),
-    path: Sequelize.STRING(300),
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+class File extends Model { }
+
+File.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+    },
+    project_id: DataTypes.NUMBER,
+    name: DataTypes.STRING(100),
+    path: DataTypes.STRING(300),
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
+}, {
+    sequelize,
+    modelName: "file"
 })
 
 module.exports = File

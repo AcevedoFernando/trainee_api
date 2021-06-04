@@ -1,17 +1,24 @@
-const Sequelize = require('sequelize')
-const db = require('./index')
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('./../database/db');
 
-const Project = db.define('project', {
-    id: Sequelize.INTEGER,
-    name: Sequelize.STRING(100),
-    price: Sequelize.DOUBLE,
-    cost: Sequelize.DOUBLE,
-    machine: Sequelize.STRING(100),
-    status: Sequelize.INTEGER,
-    delivery_at: Sequelize.DATE,
-    type: Sequelize.STRING(100),
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+class Project extends Model {}
+Project.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+    },
+    name:  DataTypes.STRING(100),
+    price:  DataTypes.DOUBLE,
+    cost: DataTypes.DOUBLE,
+    machine:  DataTypes.STRING(100),
+    status:  DataTypes.INTEGER,
+    delivery_at: DataTypes.DATE,
+    type: DataTypes.STRING(100),
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
+}, {
+    sequelize,
+    modelName: "project"
 })
 
 module.exports = Project
