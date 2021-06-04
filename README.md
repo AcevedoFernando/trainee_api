@@ -14,7 +14,7 @@ Inside the folder called "database", there is a file with extension .sql, enter 
 
 ## Configure connnection
 Apply the command on terminal: 
-cp config.js.example config.js
+cp config.js.example db.js
 
 In this file, add the necessary data that matches your local database
 - Example
